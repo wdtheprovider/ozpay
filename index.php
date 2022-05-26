@@ -34,7 +34,7 @@
     </button>
     <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
       <a href="#">
-        <img src="https://dev.geniusocean.net/genius_wallet/assets/images/1558572841646281442.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+        <h4> OzPay </h4>
       </a>
     </h1>
 
@@ -46,7 +46,7 @@
               <div class="page-header text-white d-print-none">
                 <div class="row align-items-center">
                   <div class="col">
-                    <h2 class="page-title"> Checkout</h2>
+                    <h2 class="page-title"> Checkout Page</h2>
                   </div>
                   <!-- Page title actions -->
                   <div class="col-auto ms-auto d-print-none">

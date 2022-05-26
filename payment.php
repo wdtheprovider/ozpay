@@ -5,9 +5,9 @@ $ref = $_GET['ref'];
 $cname = $_GET['cname'];
 $amount = $_GET['amount'];
 
-$siteCode = 'TSTSTE0001';
-$privateKey = '215114531AFF7134A94C88CEEA48E';
-$apiKey = 'EB5758F2C3B4DF3FF4F2669D5FF5B';
+$siteCode = 'WDT-WDT-001';
+$privateKey = 'HzHiOfumUq0bDRDugxEV5tHEtrEwYXeK';
+$apiKey = 'TyHlLf46efVRiHvqy0neaLleaRQogGsR';
 
 
 

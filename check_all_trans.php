@@ -1,3 +1,37 @@
+
+<?php
+
+$curl = curl_init();
+$currency = "R";
+
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://api.ozow.com/GetTransactionReport?siteCode=TSTSTE0001&startDate=2022-05-19&endDate=2022-05-22',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'ApiKey: EB5758F2C3B4DF3FF4F2669D5FF5B'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+
+$data = json_decode($response,true);
+
+
+
+?>
+
+
+
+
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
@@ -21,8 +55,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-      <a href="https://dev.geniusocean.net/genius_wallet">
-        <img src="https://dev.geniusocean.net/genius_wallet/assets/images/1558572841646281442.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+
+    <a href="#">
+        <h4> OzPay </h4>
       </a>
     </h1>
 
@@ -46,8 +81,11 @@
   
 
     <div class="row row-deck row-cards mt-3">
-        <div class="col-md-12">
-            <h2> Recent Requests</h2>
+        <div class="col-md-6">
+            <h2>List Transactions</h2>
+        </div>
+        <div class="col-md-6">
+            <h2>List Transactions</h2>
         </div>
         <div class="col-12">
             <div class="card">
@@ -55,66 +93,28 @@
                   <table class="table table-vcenter card-table table-striped">
                     <thead>
                       <tr>
-                        <th>Recipient</th>
+                        <th>Bank From</th>
+                        <th>Bank To</th>
                         <th>Amount</th>
-                        <th>Charge</th>
-                        <th>You will get</th>
+                        <th>Referrence</th>
                         <th>Status</th>
-                        <th>Date</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                                              <tr>
-                          <td>nik@gmail.com</td>
-                          <td>500 USD</td>
-                          <td>7 USD</td>
-                          <td>493 USD</td>
-                          <td>
-                                                                <span class="badge bg-warning">pending</span>
-                                                        </td>
-                          <td>10 Apr 2022 -- 05:24 am</td>
-                        </tr>
-                                                <tr>
-                          <td>demouser4@gmail.com</td>
-                          <td>2000 USD</td>
-                          <td>22 USD</td>
-                          <td>1978 USD</td>
-                          <td>
-                                                                 <span class="badge bg-danger">rejected</span>
-                                                        </td>
-                          <td>09 Apr 2022 -- 06:43 am</td>
-                        </tr>
-                                                <tr>
-                          <td>demouser4@gmail.com</td>
-                          <td>209 USD</td>
-                          <td>4.09 USD</td>
-                          <td>204.91 USD</td>
-                          <td>
-                                                                 <span class="badge bg-danger">rejected</span>
-                                                        </td>
-                          <td>03 Apr 2022 -- 06:40 pm</td>
-                        </tr>
-                                                <tr>
-                          <td>demouser4@gmail.com</td>
-                          <td>50 USD</td>
-                          <td>2.5 USD</td>
-                          <td>47.5 USD</td>
-                          <td>
-                                                                 <span class="badge bg-success">accepted</span>
-                                                        </td>
-                          <td>28 Mar 2022 -- 01:49 am</td>
-                        </tr>
-                                                <tr>
-                          <td>demouser4@gmail.com</td>
-                          <td>100 USD</td>
-                          <td>3 USD</td>
-                          <td>97 USD</td>
-                          <td>
-                                                                 <span class="badge bg-success">accepted</span>
-                                                        </td>
-                          <td>06 Mar 2022 -- 04:25 am</td>
-                        </tr>
-                                            </tbody>
+
+                    <?php foreach($data as $node){?>
+                        <tr>
+                           <td><?php echo $node['bankFromName']; ?></td>
+                           <td><?php echo $node['bankToName']; ?></td>
+                           <td><?php echo $currency.$node['amount']; ?></td>
+                           <td><?php echo $node['fromReference']; ?></td>
+                           <td><span class="badge bg-success"><?php echo $node['status']; ?></span></td>
+                          <td></td>
+                       </tr>
+
+                       <?php } ?>
+                    </tbody>
                   </table>
                 </div>
             </div>
