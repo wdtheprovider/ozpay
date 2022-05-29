@@ -2,8 +2,18 @@
 
 $curl = curl_init();
 
+
+if(isset($_GET['transaction_id'])){
+  $transaction_id = $_GET['transaction_id'];
+}
+
+
+
+$siteCode = "TSTSTE0001";
+$ApiKey = "EB5758F2C3B4DF3FF4F2669D5FF5B";
+
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://api.ozow.com/GetTransaction?siteCode=TSTSTE0001&transactionId=a97e8708-0a34-4590-876e-6076d1031829',
+  CURLOPT_URL => 'https://api.ozow.com/GetTransaction?siteCode='.$siteCode.'&transactionId='.$transaction_id,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -12,7 +22,7 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'GET',
   CURLOPT_HTTPHEADER => array(
-    'ApiKey: EB5758F2C3B4DF3FF4F2669D5FF5B'
+    'ApiKey: '.$ApiKey
   ),
 ));
 

@@ -5,8 +5,18 @@ $curl = curl_init();
 $currency = "R";
 
 
+$siteCode = "TSTSTE0001";
+$ApiKey = "EB5758F2C3B4DF3FF4F2669D5FF5B";
+$sDate = "2022-05-19";
+$eDate = "2022-05-22";
+
+if(isset($_POST['sDate'])){
+
+  $sDate = $_POST['sDate'];
+  $eDate = $_POST['eDate'];
+
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://api.ozow.com/GetTransactionReport?siteCode=TSTSTE0001&startDate=2022-05-19&endDate=2022-05-22',
+  CURLOPT_URL => 'https://api.ozow.com/GetTransactionReport?siteCode='.$siteCode.'&startDate='.$sDate.'&endDate='.$eDate,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -15,7 +25,7 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'GET',
   CURLOPT_HTTPHEADER => array(
-    'ApiKey: EB5758F2C3B4DF3FF4F2669D5FF5B'
+    'ApiKey: '.$ApiKey
   ),
 ));
 
@@ -26,6 +36,29 @@ curl_close($curl);
 $data = json_decode($response,true);
 
 
+} else{
+
+  
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://api.ozow.com/GetTransactionReport?siteCode='.$siteCode.'&startDate='.$sDate.'&endDate='.$eDate,
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'ApiKey: '.$ApiKey
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+
+$data = json_decode($response,true);
+}
 
 ?>
 
@@ -78,14 +111,43 @@ $data = json_decode($response,true);
             </div>
 <div class="page-body">
   <div class="container-xl">
-  
-
     <div class="row row-deck row-cards mt-3">
         <div class="col-md-6">
             <h2>List Transactions</h2>
         </div>
         <div class="col-md-6">
-            <h2>List Transactions</h2>
+        
+     
+    <form action="" method="POST">
+        <div class = "row">
+
+            <div class="col-md-4">
+            <div class="form-group">
+                <label for="sDate">From Date:</label>
+                <input type="date" id="sDate" min="01/01/2020" required name="sDate" class="input-group"  
+                value="<?php if(isset($_POST['sDate'])){ echo $_POST['sDate'];}else{}?>">
+            </div>
+            </div>
+
+            <div class="col-md-4">
+            <div class="form-group">
+                <label for="eDate">To Date:</label>
+                <input type="date" required name="eDate" id="eDate" class="input-group"
+                value="<?php if(isset($_POST['eDate'])){ echo $_POST['eDate'];
+    
+                }?>"> 
+            </div>
+            </div>
+
+            <div class="col-md-4">
+            <div class="form-group">
+            <br>
+              <input type="submit"  name="filter" value="Apply Filter" class="btn btn-primary">
+            </div>
+            </div>
+        </div>
+    </form>
+
         </div>
         <div class="col-12">
             <div class="card">
@@ -109,7 +171,8 @@ $data = json_decode($response,true);
                            <td><?php echo $node['bankToName']; ?></td>
                            <td><?php echo $currency.$node['amount']; ?></td>
                            <td><?php echo $node['fromReference']; ?></td>
-                           <td><span class="badge bg-success"><?php echo $node['status']; ?></span></td>
+                           <td><span class="badge"><?php echo $node['status']; ?></span></td>
+                           <td><a class="btn btn-info" href="check_trans.php?transaction_id=<?php echo $node['id']; ?>" >View</a></td>
                           <td></td>
                        </tr>
 
