@@ -1,17 +1,13 @@
 <?php 
 
 
+include 'config.php';
+
 $ref = $_GET['ref'];
 $cname = $_GET['cname'];
 $amount = $_GET['amount'];
 
-$siteCode = 'WDT-WDT-001';
-$privateKey = 'HzHiOfumUq0bDRDugxEV5tHEtrEwYXeK';
-$apiKey = 'TyHlLf46efVRiHvqy0neaLleaRQogGsR';
-
-
-
-
+$ref = $ref."_".generateRandomString(2); // generating two letters/numbers to make the referrence unique
 
 $postData = array('SiteCode' => $siteCode,
                     'CountryCode' => 'ZA',
@@ -19,16 +15,16 @@ $postData = array('SiteCode' => $siteCode,
                     'Amount' => $amount,
                     'TransactionReference' => $ref,
                     'BankReference' => $ref,
-                    'CancelUrl' => 'http://test.i-pay.co.za/responsetest.php',
-                    'ErrorUrl' => 'http://test.i-pay.co.za/responsetest.php',
-                    'SuccessUrl' => 'http://test.i-pay.co.za/responsetest.php',
+                    'CancelUrl' => 'http://localhost/ozpay/payment_not_success.php',
+                    'ErrorUrl' => 'http://localhost/ozpay/payment_not_success.php',
+                    'SuccessUrl' => 'http://localhost/ozpay/payment_success.php',
                     'NotifyUrl' => 'http://test.i-pay.co.za/responsetest.php',
-                    'IsTest' => 'false');
+                    'IsTest' => $IsTest);
 
 $hashString = strtolower(implode('', $postData) . $privateKey);
 $hashCheck = hash('sha512', $hashString);
 $postData['HashCheck'] = $hashCheck;
-$ozowResult = getPaymentLinkModel($postData, $apiKey);
+$ozowResult = getPaymentLinkModel($postData, $ApiKey);
 
 
 if (!empty($ozowResult->errorMessage)) {
@@ -38,7 +34,7 @@ if (!empty($ozowResult->errorMessage)) {
 header('Location:'. $ozowResult->url, true);
 die();
 
-function getPaymentLinkModel($postData, $apiKey)
+function getPaymentLinkModel($postData, $ApiKey)
 {
     $jsonRequest = json_encode($postData);
 
@@ -46,7 +42,7 @@ function getPaymentLinkModel($postData, $apiKey)
 
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         'Accept: application/json',
-        'ApiKey:' . $apiKey,
+        'ApiKey:' . $ApiKey,
         'Content-Type: application/json'
     ));
 

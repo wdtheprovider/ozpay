@@ -1,12 +1,16 @@
 <?php 
 
+include 'config.php';
 
-include 'db_con.php';
-
-function loadCompanyDetials(){
+function loadCompanySettings(){
     $db = new DbConnect;
     $conn = $db->connect();
 
+    $sql = "SELECT * FROM settings";
+
+    $row = $conn->query($sql);
+
+    return $row;
 }
 
 ?>

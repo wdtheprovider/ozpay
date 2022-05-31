@@ -4,11 +4,11 @@
 $curl = curl_init();
 $currency = "R";
 
+include 'config.php';
 
-$siteCode = "TSTSTE0001";
-$ApiKey = "EB5758F2C3B4DF3FF4F2669D5FF5B";
-$sDate = "2022-05-19";
-$eDate = "2022-05-22";
+
+$sDate = date('Y-m-d', strtotime($date. ' - 17 days'));
+$eDate = date("Y-m-d");
 
 if(isset($_POST['sDate'])){
 
@@ -89,8 +89,8 @@ $data = json_decode($response,true);
     </button>
     <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
 
-    <a href="#">
-        <h4> OzPay </h4>
+    <a href="index.php">
+        <h4> Go Back To Checkout</h4>
       </a>
     </h1>
 
@@ -125,7 +125,7 @@ $data = json_decode($response,true);
             <div class="form-group">
                 <label for="sDate">From Date:</label>
                 <input type="date" id="sDate" min="01/01/2020" required name="sDate" class="input-group"  
-                value="<?php if(isset($_POST['sDate'])){ echo $_POST['sDate'];}else{}?>">
+                value="<?php if(isset($_POST['sDate'])){ echo $_POST['sDate'];}else{ echo date('Y-m-d', strtotime($date. ' - 14 days')); }?>">
             </div>
             </div>
 
@@ -135,7 +135,7 @@ $data = json_decode($response,true);
                 <input type="date" required name="eDate" id="eDate" class="input-group"
                 value="<?php if(isset($_POST['eDate'])){ echo $_POST['eDate'];
     
-                }?>"> 
+                } else {echo date("Y-m-d");}?>"> 
             </div>
             </div>
 

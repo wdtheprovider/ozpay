@@ -1,3 +1,26 @@
+<?php
+include 'config.php';
+
+
+
+$db = new DbConnect;
+$conn = $db->connect();
+
+$sql = "SELECT * FROM settings";
+$result = $conn->query($sql);
+
+while($row = $result->fetch_assoc()) {
+
+  $_SESSION['siteCode'] = $row["siteCode"];
+  $_SESSION['siteName']   = $row["siteName"];
+  $_SESSION['apiKey']  = $row["apiKey"];
+
+  //echo "id: " . $row["siteCode"]. " - Name: " . $row["siteCode"]. " " . $row["siteCode"]. "<br>";
+}
+
+?>
+
+
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
@@ -22,8 +45,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-      <a href="#">
-        <h4> OzPay </h4>
+      <a href="check_all_trans.php">
+        <h4> View All Transactions </h4>
       </a>
     </h1>
 
@@ -51,7 +74,7 @@
         <div class="col-12">
             <div class="card">
             <div class="card-body">
-                <form action="payment.php" id="form" method="get">
+                <form action="<?php echo BASE_URL."payment.php"; ?>" id="form" method="get">
                      <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="form-label">Customer Name <span class="ms-2 check"></span></div>
@@ -70,7 +93,9 @@
                         <div class="col-md-6 mb-3">
                             <div class="form-label">&nbsp;</div>
                             <button type="submit" class="btn btn-success w-50 transfer">
-                                Pay with Ozow </button>
+                                Pay with Ozow </button><br><br>
+                            <button type="submit" class="btn btn-success w-50 transfer">
+                                Donate with Ozow</button>
                         </div>
                     </div>
                 </form>

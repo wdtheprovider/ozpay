@@ -1,16 +1,13 @@
 <?php
 
+include 'config.php';
+
 $curl = curl_init();
 
 
 if(isset($_GET['transaction_id'])){
   $transaction_id = $_GET['transaction_id'];
 }
-
-
-
-$siteCode = "TSTSTE0001";
-$ApiKey = "EB5758F2C3B4DF3FF4F2669D5FF5B";
 
 curl_setopt_array($curl, array(
   CURLOPT_URL => 'https://api.ozow.com/GetTransaction?siteCode='.$siteCode.'&transactionId='.$transaction_id,
@@ -60,8 +57,8 @@ $currency = "R";
       <span class="navbar-toggler-icon"></span>
     </button>
     <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-      <a href="#">
-        <h4> OzPay </h4>
+      <a href="check_all_trans.php">
+        <h4> Go Back </h4>
       </a>
     </h1>
 
