@@ -71,7 +71,7 @@ while($row = $result->fetch_assoc()) {
 <div class="page-body">
   <div class="container-xl">
     <div class="row row-deck row-cards">
-        <div class="col-12">
+        <div class="col-6">
             <div class="card">
             <div class="card-body">
                 <form action="<?php echo BASE_URL."payment.php"; ?>" id="form" method="get">
@@ -99,6 +99,26 @@ while($row = $result->fetch_assoc()) {
                         </div>
                     </div>
                 </form>
+            </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="container">
+            <div class="card">
+            <div class="card-body">
+
+            <h1> Where to use this Script </h1>
+            <p> All developers looking to implement Ozow.com Payment gateway in their Project to accept payment online with
+              ozow are welcome to re-use this script/source code.
+            </p>
+            <p> This is a checkout page, you can direct re-use this in your project or study the codes and implement  it in your project</p>
+            <h3> Popular Website using Ozow </h3>
+            <ul>
+              <li>Takealot</li>
+              <li>Betway</li>
+              <li>Suparbalist</li>
+            </ul>  
+            </div>
             </div>
             </div>
         </div>

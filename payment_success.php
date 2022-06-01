@@ -12,11 +12,24 @@
 //&StatusMessage=
 //&Hash=770ed3fa7149d3fc128e5840a871e290b1e1284b6c54391f0ff84f411ed12203187b9e5618f04fce1cb1a7d8f7ff8a41931e486cc15afa212d64037aad8c99c7
 
+include 'config.php';
 
 $Amount = $_GET['Amount'];
 $Status = $_GET['Status'];
 $TransactionId = $_GET['TransactionId'];
 $TransactionReference = $_GET['TransactionReference'];
+$Hash = $_GET['Hash'];
+
+$Date = date("Y-m-d");
+
+$db = new DbConnect;
+$conn = $db->connect();
+
+$sql = "INSERT INTO `payments`( `amount`, `datePaid`,  `transactionRef`, `paymentStatus`, `transactionId`, `hash`, `userid`) 
+        VALUES ('$Amount',DEFAULT,'$TransactionReference','$Status','$TransactionId ','$Hash',1)";
+$result = $conn->query($sql);
+
+
 
 
 
