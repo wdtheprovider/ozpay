@@ -74,3 +74,9 @@ RUN it.......
 
 <br>
 <br>
+
+<span> 
+  <img src="https://github.com/wdtheprovider/ozpay/images/screen_1.jpg" width="290" height="600">
+ <img src="https://github.com/wdtheprovider/ozpay/images/screen_2.jpg" width="290" height="600"> 
+  <img src="https://github.com/wdtheprovider/ozpay/images/screen_3.jpg" width="290" height="600">
+</span>
