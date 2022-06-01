@@ -22,6 +22,24 @@ Installation Steps <br>
 Database Creation<br>
 
 ```
+CREATE TABLE `payments` (
+  `id` int(11) NOT NULL,
+  `amount` decimal(9,2) NOT NULL,
+  `datePaid` date NOT NULL DEFAULT current_timestamp(),
+  `transactionRef` varchar(50) NOT NULL,
+  `paymentStatus` varchar(50) NOT NULL,
+  `transactionId` varchar(50) NOT NULL,
+  `hash` varchar(256) NOT NULL,
+  `userid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
+  
+  ALTER TABLE `payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+
 CREATE TABLE `settings` (
   `id` int(11) NOT NULL,
   `siteName` varchar(50) NOT NULL,
@@ -33,24 +51,26 @@ CREATE TABLE `settings` (
   `isTest` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+  
+  ALTER TABLE `settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+COMMIT;
 
-CREATE TABLE `payments` (
-  `id` int(11) NOT NULL,
-  `amount` decimal(9,2) NOT NULL,
-  `bankName` varchar(50) NOT NULL,
-  `datePaid` date NOT NULL DEFAULT current_timestamp(),
-  `bankRef` varchar(50) NOT NULL,
-  `transactionRef` varchar(50) NOT NULL,
-  `paymentStatus` varchar(50) NOT NULL,
-  `transactionId` varchar(50) NOT NULL,
-  `hash` varchar(256) NOT NULL,
-  `userid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `settings` (`id`, `siteName`, `siteCode`, `privateKey`, `apiKey`, `countryCode`, `currencyCode`, `isTest`) VALUES
+(1, 'Store Name', 'TSTSTE0001', '215114531AFF7134A94C88CEEA48E', 'EB5758F2C3B4DF3FF4F2669D5FF5B', 'ZA', 'ZAR', '');
+
 
 ```
 
 <br> 
-Download folder_production and put the files inside the folder into your server/application
+Download/Clone the repository and edit the Config.php file for the script to work. 
 <br>
+Errors: If you get Error 500, that means your database is incorrect. 
 <br>
 RUN it.......
+
+
+<br>
+<br>
