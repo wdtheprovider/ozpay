@@ -1,4 +1,15 @@
-# Ozow Pay - PHP Custom Payment-Method
+# Ozow Pay - Custom Payment-Method
+
+<br>
+<br>
+
+Available in: PHP - Demo : https://dingi.icu/ozpay/
+<br>
+<br>
+Upcoming: Android (Java) and Flutter(Dart) stay tuned.
+<br>
+<br>
+
 Ozow https://ozow.com/ offers different ways to integrate their payment system into your web and mobile application to start accepting payments from your application, Ozow is very Unique because every payment made from your application, the payment goes straight into your Bank Account.
 
 <br>
@@ -67,16 +78,15 @@ INSERT INTO `settings` (`id`, `siteName`, `siteCode`, `privateKey`, `apiKey`, `c
 <br> 
 Download/Clone the repository and edit the Config.php file for the script to work. 
 <br>
+<br>
 Errors: If you get Error 500, that means your database is incorrect. 
 <br>
+<br>
 RUN it.......
-
-
 <br>
-<br>
-
+Demo: url https://dingi.icu/ozpay/
 <span> 
-  <img src="https://github.com/wdtheprovider/ozpay/img/screen_1.png" width="290" height="600">
- <img src="https://github.com/wdtheprovider/ozpay/img/screen_2.png" width="290" height="600"> 
-  <img src="https://github.com/wdtheprovider/ozpay/img/screen_3.png" width="290" height="600">
+  <img src="https://github.com/wdtheprovider/ozpay/blob/master/img/screen_1.png" width="800" height="300"> <br>
+ <img src="https://github.com/wdtheprovider/ozpay/blob/master/img/screen_2.png" width="800" height="300">  <br>
+  <img src="https://github.com/wdtheprovider/ozpay/blob/master/img/screen_3.png" width="800" height="300">
 </span>
