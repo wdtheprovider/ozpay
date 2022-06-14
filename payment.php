@@ -26,6 +26,9 @@ $hashCheck = hash('sha512', $hashString);
 $postData['HashCheck'] = $hashCheck;
 $ozowResult = getPaymentLinkModel($postData, $ApiKey);
 
+$_SESSION['payRef'] = $ref; //Store Ref in session for later. 
+$_SESSION['hash'] = $hashCheck;
+
 
 if (!empty($ozowResult->errorMessage)) {
     die($ozowResult->errorMessage);
