@@ -14,24 +14,59 @@
 
 include 'config.php';
 
-$Amount = $_GET['Amount'];
-$Status = $_GET['Status'];
-$TransactionId = $_GET['TransactionId'];
-$TransactionReference = $_GET['TransactionReference'];
-$Hash = $_GET['Hash'];
+# Not using $_GET for sensitive data.
+
+// $Amount = $_GET['Amount'];
+// $Status = $_GET['Status'];
+// $TransactionId = $_GET['TransactionId'];
+// $TransactionReference = $_GET['TransactionReference'];
+// $Hash = $_GET['Hash'];
+
+$TransactionReference = $_SESSION['payRef'];
 
 $Date = date("Y-m-d");
 
 $db = new DbConnect;
 $conn = $db->connect();
 
-$sql = "INSERT INTO `payments`( `amount`, `datePaid`,  `transactionRef`, `paymentStatus`, `transactionId`, `hash`, `userid`) 
-        VALUES ('$Amount',DEFAULT,'$TransactionReference','$Status','$TransactionId ','$Hash',1)";
-$result = $conn->query($sql);
+//Suggested Payment Validation
+
+# Would be to avoid using data from the url as a user can simply change that.
+# $_GET variables are not ideal for sensitive data
+# Use the provided endpoint to check transaction instead (https://api.ozow.com/GetTransaction?siteCode={siteCode}&transactionId={transactionId}) Or...
+# Put Varification logic in the NotifyURL because user has no access to NotifyURL
+
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'ApiKey:' . $ApiKey,
+    'Accept: application/json',
+    'Content-Type: application/json'
+));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_URL, 'https://api.ozow.com/GetTransactionByReference?siteCode='.$siteCode.'&transactionReference='.$TransactionReference);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+$requestResult = json_decode(curl_exec($ch), true); //Will return an array of transaction so             TransactionReference must be unique at all cost
 
 
+if($requestResult && $requestResult[0]['status'] === 'Complete'){
 
+  $Status = $requestResult[0]['status']; //Complete
+  $Amount = $requestResult[0]['amount'];
+  $TransactionId = $requestResult[0]['transactionId'];
+  $TransactionReference = $requestResult[0]['transactionReference'];
+  $Hash = $_SESSION['hash']; //Saved before user could see or edit it.
 
+  $sql = "INSERT INTO `payments`( `amount`, `datePaid`,  `transactionRef`, `paymentStatus`, `transactionId`, `hash`, `userid`) VALUES ('$Amount',DEFAULT,'$TransactionReference','$Status','$TransactionId ','$Hash',1)";
+
+  $conn->query($sql);
+  
+}else {
+  // either failed of error, redirect to error page
+  header('Location:'. BASE_URL.'payment_not_success.php', true);
+
+}
 
 ?>
 <html lang="en">
