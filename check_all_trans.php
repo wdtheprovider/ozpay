@@ -6,6 +6,8 @@ $currency = "R";
 
 include 'config.php';
 
+$date = date("Y-m-d");
+
 
 $sDate = date('Y-m-d', strtotime($date. ' - 17 days'));
 $eDate = date("Y-m-d");
@@ -14,51 +16,28 @@ if(isset($_POST['sDate'])){
 
   $sDate = $_POST['sDate'];
   $eDate = $_POST['eDate'];
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://api.ozow.com/GetTransactionReport?siteCode='.$siteCode.'&startDate='.$sDate.'&endDate='.$eDate,
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'ApiKey: '.$ApiKey
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-
-$data = json_decode($response,true);
-
-
-} else{
-
-  
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://api.ozow.com/GetTransactionReport?siteCode='.$siteCode.'&startDate='.$sDate.'&endDate='.$eDate,
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'ApiKey: '.$ApiKey
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-
-$data = json_decode($response,true);
 }
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://api.ozow.com/GetTransactionReport?siteCode='.$siteCode.'&startDate='.$sDate.'&endDate='.$eDate,
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'ApiKey: '.$ApiKey
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+
+$data = json_decode($response,true);
+
 
 ?>
 
